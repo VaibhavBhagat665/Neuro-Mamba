@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Checkpoints and Models
+checkpoints/
+*.pt
+*.pth
+
+# Results and Logs
+results/
+*.npy
+*.mp4
+*.png
+wandb/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Custom zip
+neuro-mamba.zip

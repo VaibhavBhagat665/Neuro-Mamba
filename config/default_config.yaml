@@ -1,0 +1,72 @@
+# ============================================================
+# Neuro-Mamba Shielded Control Agent — Default Configuration
+# ============================================================
+
+environment:
+  env_id: "SafetyPointGoal1-v0"
+  obs_dim: 60
+  action_dim: 2
+  max_episode_steps: 1000
+
+# ----- Mamba Actor-Critic Architecture -----
+model:
+  d_model: 128          # input/output feature dimension
+  d_state: 16           # SSM state expansion factor (N)
+  d_conv: 4             # local convolution width
+  expand: 2             # inner dimension multiplier (d_inner = d_model * expand)
+  n_layers: 2           # number of stacked Mamba blocks
+
+# ----- PPO Hyperparameters -----
+ppo:
+  n_steps: 2048         # rollout steps per update
+  n_epochs: 10          # PPO update epochs
+  batch_size: 64        # minibatch size (number of sequences)
+  gamma: 0.99           # discount factor
+  gae_lambda: 0.95      # GAE lambda
+  clip_range: 0.2       # PPO clip epsilon
+  ent_coef: 0.01        # entropy regularization
+  vf_coef: 0.5          # value function loss weight
+  max_grad_norm: 0.5    # gradient clipping
+  learning_rate: 3.0e-4
+  seq_len: 32           # Mamba training sequence length
+
+# ----- CBF-QP Shield -----
+shield:
+  d_safe: 0.25          # minimum safe distance to hazard (meters)
+  gamma_cbf: 1.0        # CBF class-K gain (higher = more conservative)
+  dt: 0.02              # environment timestep (50 Hz)
+  max_speed: 0.5        # max forward velocity of PointRobot
+  lidar_hazard_start: 16
+  lidar_hazard_end: 32
+  n_lidar_bins: 16
+  lidar_max_dist: 3.0   # default LiDAR max range
+
+# ----- Safety Hallucination -----
+hallucination:
+  kappa_start: 10.0     # initial shield penalty (high → agent fears shield)
+  kappa_end: 2.0        # final shield penalty (moderate → refine near boundary)
+
+# ----- Training -----
+training:
+  total_timesteps: 1_000_000
+  seed: 42
+  device: "cuda"
+  checkpoint_interval: 100_000   # save model every N steps
+  log_interval: 10               # log to WandB every N rollouts
+
+# ----- Evaluation -----
+evaluation:
+  n_episodes: 100       # episodes for Pareto/ablation evaluation
+  render_fps: 30
+  render_n_frames: 1000
+
+# ----- Baseline (stable-baselines3) -----
+baseline:
+  mlp_net_arch: [64, 64]
+  lstm_hidden_size: 64
+  total_timesteps: 1_000_000
+
+# ----- WandB -----
+wandb:
+  project: "neuro-mamba-shield"
+  entity: null           # set to your WandB username/team
