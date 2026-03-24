@@ -8,8 +8,8 @@ torchaudio
 numpy
 
 # Mamba SSM (requires CUDA 11.8+ and gcc>=9)
-mamba-ssm
-causal-conv1d
+mamba-ssm==1.2.0
+causal-conv1d>=1.1.0
 
 # Safety Environments
 safety-gymnasium
