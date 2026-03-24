@@ -2,17 +2,19 @@
 # Python 3.10 required for mamba-ssm compatibility
 
 # Core Deep Learning
-torch==2.1.0
+torch
 torchvision
 torchaudio
+numpy
 
 # Mamba SSM (requires CUDA 11.8+ and gcc>=9)
-mamba-ssm==1.2.0
-causal-conv1d>=1.1.0
+mamba-ssm
+causal-conv1d
 
 # Safety Environments
-safety-gymnasium==0.4.0
-gymnasium==0.29.0
+safety-gymnasium
+gymnasium
+mujoco
 
 # Optimization Solvers (CBF-QP Shield)
 cvxpy==1.4.2
@@ -25,6 +27,7 @@ sb3-contrib                 # RecurrentPPO for LSTM baseline
 
 # Visualization & Logging
 wandb
+tensorboard
 matplotlib
 imageio
 imageio-ffmpeg              # for MP4 encoding
