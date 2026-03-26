@@ -31,7 +31,7 @@ tensorboard
 matplotlib
 imageio
 imageio-ffmpeg              # for MP4 encoding
-pygame
+pygame>=2.5.2
 opencv-python
 
 # Config
